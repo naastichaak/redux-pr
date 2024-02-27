@@ -27,6 +27,7 @@ import {
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../redux/auth/authSelectors";
+import { formatPostDate } from "../../utils/formatPostDate";
 
 function PostCard({
   title,
@@ -38,6 +39,7 @@ function PostCard({
   isLiked,
   likesCount,
   onDelete,
+  createdAt,
 }) {
   const [isLikeLoading, setIsLikeLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
@@ -73,8 +75,14 @@ function PostCard({
 
             <Box>
               <Heading size="sm">{author.fullName || "-"}</Heading>
-              <Text>@{author.username}</Text>
+              <Text as={Link} to={`/users/${author.id}`}>
+                @{author.username}
+              </Text>
             </Box>
+
+            <Text fontSize="sm" fontWeight={500}>
+              {formatPostDate(createdAt)}
+            </Text>
           </Flex>
 
           {author.id === user.id && (

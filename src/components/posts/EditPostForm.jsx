@@ -2,10 +2,11 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { Stack, Button } from "@chakra-ui/react";
 import InputField from "../InputField";
-import { createPostService } from "../../services/postsServices";
+import { editPostServise } from "../../services/postsServices";
 import PostBodyField from "./PostBodyField";
 import { useEffect } from "react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 const schema = yup.object().shape({
   title: yup.string().min(3).max(100).required(),
@@ -16,6 +17,8 @@ const schema = yup.object().shape({
 });
 
 function EditPostForm({ post }) {
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -26,7 +29,9 @@ function EditPostForm({ post }) {
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      createPostService(values);
+      editPostServise(post.id, values).then(() =>
+        navigate(`/posts/${post.id}`)
+      );
     },
   });
 
@@ -86,7 +91,7 @@ function EditPostForm({ post }) {
           {...formik.getFieldProps("body")}
         />
 
-        <Button type="submit" colorScheme="blue">
+        <Button type="submit" colorScheme="blue" isActive={!post}>
           Edit Post
         </Button>
       </Stack>

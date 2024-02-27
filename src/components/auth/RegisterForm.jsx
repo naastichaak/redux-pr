@@ -9,22 +9,23 @@ import {
   Alert,
   AlertIcon,
   ButtonGroup,
-} from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import { useDispatch } from 'react-redux';
-import { loginAction } from '../../redux/auth/authActions';
-import { registerService } from '../../services/authServices';
-import { useState } from 'react';
+} from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { useDispatch } from "react-redux";
+import { loginAction } from "../../redux/auth/authActions";
+import { registerService } from "../../services/authServices";
+import { useState } from "react";
+// import InputField from "../InputField";
 
 const validationSchema = yup.object().shape({
   username: yup
     .string()
     .min(3)
-    .max(50, 'Username cannot be longer than 50')
-    .required('Username is required'),
-  password: yup.string().min(8).max(255).required('Password is required'),
+    .max(50, "Username cannot be longer than 50")
+    .required("Username is required"),
+  password: yup.string().min(8).max(255).required("Password is required"),
   firstName: yup.string().required(),
   lastName: yup.string().required(),
 });
@@ -37,10 +38,10 @@ function RegisterForm() {
 
   const formik = useFormik({
     initialValues: {
-      username: '',
-      password: '',
-      firstName: '',
-      lastName: '',
+      username: "",
+      password: "",
+      firstName: "",
+      lastName: "",
     },
     validationSchema,
     onSubmit: (values) => {
@@ -63,7 +64,7 @@ function RegisterForm() {
         isInvalid={!!formik.errors.username && formik.touched.username}
       >
         <FormLabel>Username</FormLabel>
-        <Input placeholder="Username" {...formik.getFieldProps('username')} />
+        <Input placeholder="Username" {...formik.getFieldProps("username")} />
         <FormErrorMessage>{formik.errors.username}</FormErrorMessage>
       </FormControl>
 
@@ -75,7 +76,7 @@ function RegisterForm() {
         <Input
           placeholder="Password"
           type="password"
-          {...formik.getFieldProps('password')}
+          {...formik.getFieldProps("password")}
         />
         <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
       </FormControl>
@@ -88,7 +89,7 @@ function RegisterForm() {
           <FormLabel>First Name</FormLabel>
           <Input
             placeholder="First Name"
-            {...formik.getFieldProps('firstName')}
+            {...formik.getFieldProps("firstName")}
           />
           <FormErrorMessage>{formik.errors.firstName}</FormErrorMessage>
         </FormControl>
@@ -100,7 +101,7 @@ function RegisterForm() {
           <FormLabel>Last Name</FormLabel>
           <Input
             placeholder="Last Name"
-            {...formik.getFieldProps('lastName')}
+            {...formik.getFieldProps("lastName")}
           />
           <FormErrorMessage>{formik.errors.lastName}</FormErrorMessage>
         </FormControl>
